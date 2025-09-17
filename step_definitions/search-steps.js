@@ -4,10 +4,6 @@ const pageObjectMap = require('../shared-objects/pageObjectData');
 let activePageObject;
 
 Before((scenario) => {
-  console.log('Scenario tags:', scenario.pickle.tags.map(tag => tag.name));
-  console.log('Available page object tags:', Object.keys(pageObjectMap));
-  console.log('Page object map values:', Object.values(pageObjectMap).map(po => po ? typeof po : 'null'));
-  
   // Filter out null page objects
   const validPageObjectMap = {};
   for (const [tag, pageObject] of Object.entries(pageObjectMap)) {
@@ -15,8 +11,6 @@ Before((scenario) => {
       validPageObjectMap[tag] = pageObject;
     }
   }
-  
-  console.log('Valid page object tags:', Object.keys(validPageObjectMap));
   
   activePageObject = getActivePageObject(validPageObjectMap);
   console.log('activePageObject ========================== 1 :', activePageObject);
