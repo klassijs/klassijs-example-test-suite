@@ -4,8 +4,17 @@ const pageObjectMap = require('../shared-objects/pageObjectData');
 let activePageObject;
 
 Before((scenario) => {
-  activePageObject = getActivePageObject(scenario, pageObjectMap);
+  // Filter out null page objects
+  const validPageObjectMap = {};
+  for (const [tag, pageObject] of Object.entries(pageObjectMap)) {
+    if (pageObject !== null) {
+      validPageObjectMap[tag] = pageObject;
+    }
+  }
+  
+  activePageObject = getActivePageObject(validPageObjectMap);
   console.log('activePageObject ========================== 1 :', activePageObject);
+  console.log('activePageObject methods:', Object.getOwnPropertyNames(activePageObject).filter(name => typeof activePageObject[name] === 'function'));
 });
 
 Given(/^The user arrives on the duckduckgo search page$/, async () => {
@@ -13,7 +22,7 @@ Given(/^The user arrives on the duckduckgo search page$/, async () => {
 });
 
 When(/^they input (.*)$/, async (searchWord) => {
-  if (!activePageObject || !activePageObject.performWebSearch(searchWord)) {
+  if (!activePageObject || !activePageObject.performWebSearch) {
     throw new Error('The active page object does not have a performWebSearch method!');
   }
   await activePageObject.performWebSearch(searchWord);
