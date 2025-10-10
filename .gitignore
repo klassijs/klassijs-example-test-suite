@@ -9,6 +9,7 @@ log
 .node_repl_history
 reports
 artifacts
+visual-regression-baseline
 
 # IntelliJ project files
 .idea
