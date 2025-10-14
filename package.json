@@ -37,7 +37,7 @@
     "cilts3load": "node ./node_modules/klassi-js/index.js --disableReport --tags @s3load --remoteService lambdatest --extraSettings"
   },
   "dependencies": {
-    "klassi-js": "^6.0.1",
+    "klassi-js": "^6.0.2",
     "klassijs-a11y-validator": "^1.0.0",
     "klassijs-astellen": "^1.0.1",
     "klassijs-pageObject-selector": "github:klassijs/klassijs-pageObject-selector",
